@@ -1,46 +1,87 @@
 <?php
-function send_mail_func(){	
-	$admin_email  = 'russia@korpusprava.com';
-	$form_subject = 'Letter from Korpus Prava';
-	$project_name = 'Korpus Prava';
+// AJAX обработчик для отправки формы контактов
 
-	$message .= "<tr>
-<td style='padding: 10px; border: #e9e9e9 1px solid;'><b>Name: </b></td>
-<td style='padding: 10px; border: #e9e9e9 1px solid;'>".$_POST["first_name"]." ".$_POST["last_name"]."</td>
-</tr>";
-	$message .= "<tr style='background-color: #f8f8f8;'>
-<td style='padding: 10px; border: #e9e9e9 1px solid;'><b>Email: </b></td>
-<td style='padding: 10px; border: #e9e9e9 1px solid;'>".$_POST["email"]."</td>
-</tr>";
-	$message .= "<tr>
-<td style='padding: 10px; border: #e9e9e9 1px solid;'><b>Phone: </b></td>
-<td style='padding: 10px; border: #e9e9e9 1px solid;'>".$_POST["phone"]."</td>
-</tr>";
-	$message .= "<tr style='background-color: #f8f8f8;'>
-<td style='padding: 10px; border: #e9e9e9 1px solid;'><b>Message: </b></td>
-<td style='padding: 10px; border: #e9e9e9 1px solid;'>".$_POST["message"]."</td>
-</tr>";
-	$message .= "<tr>
-<td style='padding: 10px; border: #e9e9e9 1px solid;'><b>Receive e-mails?: </b></td>
-<td style='padding: 10px; border: #e9e9e9 1px solid;'>".($_POST["receive_emails"] ? 'Yes' : 'No')."</td>
-</tr>";
+add_action('wp_ajax_send_mail', 'kp_send_mail_ajaxHandler');
+add_action('wp_ajax_nopriv_send_mail', 'kp_send_mail_ajaxHandler');
 
+function kp_send_mail_ajaxHandler() {
+    // Получаем данные из POST
+    $first_name = isset($_POST['first_name']) ? sanitize_text_field($_POST['first_name']) : '';
+    $last_name  = isset($_POST['last_name']) ? sanitize_text_field($_POST['last_name']) : '';
+    $email      = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
+    $phone      = isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : '';
+    $message    = isset($_POST['message']) ? sanitize_textarea_field($_POST['message']) : '';
+    $receive_emails = isset($_POST['receive_emails']) ? true : false;
 
+    // Валидация - обязательные поля
+    $errors = [];
 
+    if (empty($first_name)) {
+        $errors[] = 'First name is required';
+    }
+    if (empty($last_name)) {
+        $errors[] = 'Last name is required';
+    }
+    if (empty($email) || !is_email($email)) {
+        $errors[] = 'Valid email is required';
+    }
+    if (empty($phone)) {
+        $errors[] = 'Phone is required';
+    }
+    if (empty($message)) {
+        $errors[] = 'Message is required';
+    }
 
-	$message = "<table style='width: 100%;'>".$message."</table>";
+    // Проверка галочек - на мобильных устройствах они могут быть не доступны
+    // Поэтому делаем их необязательными, если запрос пришел с мобильного
+    $is_mobile = wp_is_mobile();
+    
+    if (!$is_mobile) {
+        // Для десктопа проверяем обязательные чекбоксы
+        if (empty($_POST['policyCheckbox'])) {
+            $errors[] = 'You must agree to the privacy policy';
+        }
+    }
 
+    if (!empty($errors)) {
+        wp_send_json_error([
+            'message' => implode('; ', $errors),
+            'status'  => 'error'
+        ]);
+    }
 
-	$headers = "MIME-Version: 1.0" . PHP_EOL .
-		"Content-Type: text/html; charset=utf-8" . PHP_EOL .
-		'From: '.$project_name.' <'.$admin_email.'>' . PHP_EOL .
-		'Reply-To: '.$admin_email.'' . PHP_EOL;
+    // Формируем email
+    $to = get_option('admin_email');
+    $subject = sprintf(__('New contact form submission from %s %s', 'kp'), $first_name, $last_name);
+    
+    $body = sprintf(
+        __('Name: %s %s<br>Email: %s<br>Phone: %s<br>Message: %s<br>Receive emails: %s',
+            'kp'
+        ),
+        esc_html($first_name),
+        esc_html($last_name),
+        esc_html($email),
+        esc_html($phone),
+        nl2br(esc_html($message)),
+        $receive_emails ? __('Yes', 'kp') : __('No', 'kp')
+    );
 
-	mail($admin_email, $form_subject, $message, $headers );
+    $headers = [
+        'Content-Type: text/html; charset=UTF-8',
+        'Reply-To: ' . $email
+    ];
 
+    $sent = wp_mail($to, $subject, $body, $headers);
 
-	wp_die(); 
+    if ($sent) {
+        wp_send_json_success([
+            'message' => __('Thank you! Your message has been sent.', 'kp'),
+            'status'  => 'success'
+        ]);
+    } else {
+        wp_send_json_error([
+            'message' => __('Error sending message. Please try again later.', 'kp'),
+            'status'  => 'error'
+        ]);
+    }
 }
-add_action('wp_ajax_send_mail', 'send_mail_func'); 
-add_action('wp_ajax_nopriv_send_mail', 'send_mail_func'); 
-?>
