@@ -1,0 +1,79 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Korpus Prava\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-12 17:57+0000\n"
+"PO-Revision-Date: 2022-07-12 17:52+0000\n"
+"Last-Translator: \n"
+"Language-Team: Russian\n"
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.2; wp-6.0\n"
+"X-Domain: kp"
+
+#: front_page.php:126 page_templates/cookies.php:16
+msgid "Accept all"
+msgstr ""
+
+#: header.php:99
+msgid "All rights reserved."
+msgstr ""
+
+#: front_page.php:129 page_templates/cookies.php:17
+msgid "Decline all"
+msgstr ""
+
+#: template-parts/contact_from.php:5
+msgid "E-mail"
+msgstr ""
+
+#: template-parts/contact_from.php:3
+msgid "First name"
+msgstr ""
+
+#: page_templates/who_we_are.php:23 page_templates/who_we_are.php:60
+msgid "Follow us"
+msgstr ""
+
+#: template-parts/contact_from.php:15
+msgid "I agree to the terms of processing of my data specified in"
+msgstr ""
+
+#: template-parts/contact_from.php:26
+msgid ""
+"I want to receive some useful e-mails about legal news and change of "
+"legislation"
+msgstr ""
+
+#: template-parts/contact_from.php:4
+msgid "Last name"
+msgstr ""
+
+#: page_templates/cookies.php:36
+msgid "Learn more"
+msgstr ""
+
+#: front_page.php:133 page_templates/cookies.php:18
+msgid "MANAGE"
+msgstr ""
+
+#: template-parts/contact_from.php:6
+msgid "Phone"
+msgstr ""
+
+#: template-parts/contact_from.php:29
+msgid "Submit"
+msgstr ""
+
+#: page_templates/cookies.php:97
+msgid "Successfully saved!"
+msgstr ""
+
+#: template-parts/contact_from.php:9
+msgid "Your message"
+msgstr ""

@@ -1,0 +1,85 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Korpus Prava\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-12 17:57+0000\n"
+"PO-Revision-Date: 2022-07-16 19:32+0000\n"
+"Last-Translator: \n"
+"Language-Team: Russian\n"
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.2; wp-6.0\n"
+"X-Domain: kp"
+
+#: front_page.php:126 page_templates/cookies.php:16
+msgid "Accept all"
+msgstr "Принять все"
+
+#: header.php:104
+msgid "All rights reserved."
+msgstr "Все права защищены."
+
+#: front_page.php:129 page_templates/cookies.php:17
+msgid "Decline all"
+msgstr "Отклонить все"
+
+#: template-parts/contact_from.php:5
+msgid "E-mail"
+msgstr "E-mail"
+
+#: template-parts/contact_from.php:3
+msgid "First name"
+msgstr "Имя"
+
+#: page_templates/who_we_are.php:23 page_templates/who_we_are.php:60
+msgid "Follow us"
+msgstr "Подписывайтесь на нас"
+
+#: template-parts/contact_from.php:15
+msgid "I agree to the terms of processing of my data specified in"
+msgstr "Я согласен с условиями обработки моих данных, указанными в"
+
+#: template-parts/contact_from.php:26
+msgid ""
+"I want to receive some useful e-mails about legal news and change of "
+"legislation"
+msgstr ""
+"Я хочу получать полезные электронные письма о юридических новостях и "
+"изменениях в законодательстве"
+
+#: template-parts/contact_from.php:4
+msgid "Last name"
+msgstr "Фамилия"
+
+#: page_templates/cookies.php:36
+msgid "Learn more"
+msgstr "Узнать больше"
+
+#: front_page.php:133 page_templates/cookies.php:18
+msgid "MANAGE"
+msgstr "Управлять"
+
+#: template-parts/contact_from.php:6
+msgid "Phone"
+msgstr "Телефон"
+
+#: page_templates/team.php:81
+msgid "SEND E-MAIL"
+msgstr "ОТПРАВИТЬ E-MAIL"
+
+#: template-parts/contact_from.php:29
+msgid "Submit"
+msgstr "Подтвердить"
+
+#: page_templates/cookies.php:97
+msgid "Successfully saved!"
+msgstr "Успешно сохранено!"
+
+#: template-parts/contact_from.php:9
+msgid "Your message"
+msgstr "Ваше сообщение"

@@ -1,0 +1,13 @@
+[data-slug="admin-columns-pro.php"] .notice-warning {
+	background-color: transparent !important;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+[data-slug="admin-columns-pro.php"] .notice-warning p {
+	display: none;
+}
+
+.acf-editor-wrap iframe {
+   max-height: 200px;
+}

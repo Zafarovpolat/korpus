@@ -1,0 +1,166 @@
+/*
+Theme Name: Korpus Prava
+Author: Rindan (Dmitriy Yerohin)
+Version: 1.0
+*/
+
+
+
+.lang-switcher__btn {
+	opacity: 1;
+	z-index: 5;
+	position: static;
+}
+
+.contacts__content-community-wrapper-list a.contact-form-submit.g-btn::before,
+.contacts__content-community-wrapper-list a.contact-form-submit.g-btn::after {
+	margin-left:0;
+
+}
+
+.wpcf7-not-valid-tip,
+.wpcf7-response-output {
+	display:none;
+}
+
+.second-tab__table {
+	-webkit-box-pack:start;
+	-ms-flex-pack:start;
+	justify-content:flex-start;
+}
+
+.second-tab__table-item img {
+	height:auto;
+	width: 100%;
+	max-height: 30px;
+	-o-object-fit: contain;
+	object-fit: contain;
+	-o-object-position: left center;
+	object-position: left center;
+}
+
+.lang-switcher__btn:not(.lang-switcher__btn--current) {
+	position:absolute;
+	bottom:-12px;
+}
+.lang-switcher__btn--current {
+	padding-bottom:2px;
+}
+
+.g-input .wpcf7-not-valid {
+	border-color: #c3161c;
+}
+.contact-form__wrapper-form-policy label:before {
+	content: "";
+	border: 0.138vw solid #8d8d8b;
+	display: inline-block;
+	max-width: 1.1805vw;
+	width: 100%;
+	height: 1.1805vw;
+	margin-right: 0.555vw;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: .4s;
+	-o-transition: .4s;
+	transition: .4s;
+	cursor: pointer;
+	background-size: 100% auto;
+	background-position: 20% 30%;
+	background-repeat: no-repeat;
+}
+.second-tab__table .second-tab__table-item:not(:last-child) {
+	margin-right:40px;
+}
+.team__content-employees-link {
+	width: 2.36111vw;
+	height: 2.36111vw;
+}
+.team__links.show {
+	border-top: 0.138vw solid #000;
+}
+.team .team__links .arrow-link {
+	border-top:none;
+	border-bottom: 0.138vw solid #000;
+}
+
+.navigation-page a.last_page {
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: reverse;
+	-ms-flex-direction: row-reverse;
+	flex-direction: row-reverse;
+	margin-right: 2.222vw;
+}
+.navigation-page a.last_page svg {
+	margin-left: 0;
+	margin-right: 1.11vw;
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+@media (min-width: 1441px) {
+	.contact-form__wrapper-form-policy label:before {
+		border: 0.1041vw solid #8d8d8b;
+		max-width: 0.88541vw;
+		height: 0.8854166vw;
+		margin-right: 0.4166vw;
+	}
+	.second-tab__table .second-tab__table-item:not(:last-child) {
+		margin-right:124px;
+	}
+	.team__content-employees-link {
+		width: 1.770833vw;
+		height: 1.770833vw;
+	}
+	.team .team__links.show {
+		border-top: .104166vw solid #000
+	}
+	.team .team__links .arrow-link {
+		border-top:none;
+		border-bottom: .104166vw solid #000
+	}
+	.navigation-page a.last_page {
+		margin-right: 1.6666vw;
+	}
+	.navigation-page a.last_page svg {
+		margin-right: 0.83333vw;
+	}
+}
+@media (max-width: 991px) {
+	.lang-switcher__btn:not(.lang-switcher__btn--current) {
+		bottom: -8px;
+	}
+}
+@media (max-width: 500px) {
+	.lang-switcher__btn--current {
+		padding-bottom: 5px;
+	}
+	.team__links .arrow-link span {
+		font-size: 3.5vw;
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 auto;
+		flex: 0 0 auto;
+	}
+	.team__content-employees-wrapper p {
+		font-size: 3.5vw;
+	}
+	.team main {
+		-webkit-box-orient:vertical;
+		-webkit-box-direction:normal;
+		-ms-flex-direction:column;
+		flex-direction:column;
+		height: auto;
+	}
+	.team__content {
+		display:-webkit-box;
+		display:-ms-flexbox;
+		display:flex;
+		max-width: 100%;
+	}
+	.team__content-employees {
+		padding-top:30px;
+	}
+	.arrow-link>div:after {
+		height:0.01em;
+	}
+}
