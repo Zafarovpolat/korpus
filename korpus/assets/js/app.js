@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             let hasSelected = false;
 
-            let regx = /^((([0-9A-Za-z]{1}[-0-9A-z\\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\\.){1,2}[-A-Za-z]{2,})$/u;
+            let regx = /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u;
             
             formAllInput.forEach(function(item) {
                 item.addEventListener('focus', function() {
@@ -165,7 +165,8 @@ document.addEventListener("DOMContentLoaded", () => {
             cookies.classList.remove('show');
         })
     });
-}*/\nif (document.querySelector('.cookies')) {
+}*/
+if (document.querySelector('.cookies')) {
     function validateCookiesDesc() {
         const allSettingsItems = document.querySelectorAll('.cookies__settings-item');
         allSettingsItems.forEach(function(item) {
@@ -569,7 +570,8 @@ if (smoothLinks) {
       secondTab.classList.toggle('show');
       document.querySelector('body').classList.toggle('purple-mood');
     });
-}*/\nfunction initializeMobileTabs(links) {
+}*/
+function initializeMobileTabs(links) {
     if (links) {
         links.forEach(function(link) {
             const allMobileTabs = document.querySelectorAll('.mobile-tab');
