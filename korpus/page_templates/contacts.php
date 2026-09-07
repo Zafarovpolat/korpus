@@ -59,15 +59,23 @@ get_header();
 								<?php the_field('right_text'); ?>
 								
 								<?php $link = get_field('join_link'); ?>
-								<a class="contact-form-submit g-btn" href="<?php echo $link["link"]; ?>">
-									<span><?php echo $link["link_text"]; ?></span>
-								</a>
+								<?php if ($link): ?>
+									<?php 
+									$link_url = is_array($link) ? ($link['link'] ?? '') : $link;
+									$link_text = is_array($link) ? ($link['link_text'] ?? '') : '';
+									?>
+									<?php if (!empty($link_url)): ?>
+										<a class="contact-form-submit g-btn" href="<?php echo esc_url($link_url); ?>">
+											<span><?php echo esc_html($link_text); ?></span>
+										</a>
+									<?php endif; ?>
+								<?php endif; ?>
 							</div>
 						</div>
 					</div>
 					
-				<br/><br/><div id="myZadarmaCallmeWidget13120"></div>
-				<script src="/zw/callUs_EN.js"></script>
+					<br/><br/><div id="myZadarmaCallmeWidget13120"></div>
+					<script src="/zw/callUs_EN.js"></script>
 
 				</div>
 			</main>
@@ -114,9 +122,17 @@ get_header();
 							<?php the_field('right_text'); ?>
 
 							<?php $link = get_field('join_link'); ?>
-							<a class="contact-form-submit g-btn" href="<?php echo $link["link"]; ?>">
-								<span><?php echo $link["link_text"]; ?></span>
-							</a>
+							<?php if ($link): ?>
+								<?php 
+								$link_url = is_array($link) ? ($link['link'] ?? '') : $link;
+								$link_text = is_array($link) ? ($link['link_text'] ?? '') : '';
+								?>
+								<?php if (!empty($link_url)): ?>
+									<a class="contact-form-submit g-btn" href="<?php echo esc_url($link_url); ?>">
+										<span><?php echo esc_html($link_text); ?></span>
+									</a>
+								<?php endif; ?>
+							<?php endif; ?>
 						</div>
 					</div>
 				</div>
