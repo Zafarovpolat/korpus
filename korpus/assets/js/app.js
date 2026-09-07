@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             let hasSelected = false;
 
-            let regx = /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/u;
+            let regx = /^((([0-9A-Za-z]{1}[-0-9A-z\\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\\.){1,2}[-A-Za-z]{2,})$/u;
             
             formAllInput.forEach(function(item) {
                 item.addEventListener('focus', function() {
@@ -40,28 +40,28 @@ document.addEventListener("DOMContentLoaded", () => {
             contactFormSubmitBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 let errCount = 0;
-    
+        
                 if(formName) {
                     if (formName.value.length === 0) {
                         formName.parentElement.classList.add('g-input-error');
                         errCount++;
                     } else { formName.parentElement.classList.remove('g-input-error') }
                 } 
-    
+        
                 if(formSurname) {
                     if (formSurname.value.length === 0) {
                         formSurname.parentElement.classList.add('g-input-error');
                         errCount++;
                     } else { formSurname.parentElement.classList.remove('g-input-error') }
                 }
-    
+        
                 if(formMail) {
                     if (formMail.value.length === 0 || !regx.test(formMail.value)) {
                         formMail.parentElement.classList.add('g-input-error');
                         errCount++;
                     } else { formMail.parentElement.classList.remove('g-input-error') }
                 } 
-    
+        
                 if(formPhone) {
                     if (formPhone.value.length >= 24 || formPhone.value.length === 0 || formPhone.value.length < 15) {
                         formPhone.parentElement.classList.add('g-input-error');
@@ -78,37 +78,45 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
 
-                if(formPolicyCheckbox) {
+                // Проверка чекбоксов - на мобильных они необязательны
+                const isMobile = window.innerWidth <= 500 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                
+                if(formPolicyCheckbox && !isMobile) {
                     if (formPolicyCheckbox.checked == false) {
                         errCount++;
                         formPolicyCheckbox.parentElement.classList.add('policy-error');
                     } else { formPolicyCheckbox.classList.remove('policy-error') }
-                } 
-
-                if(formSendCheckbox) {
+                }
+        
+                if(formSendCheckbox && !isMobile) {
                     if (formSendCheckbox.checked == false) {
                         errCount++;
                         formSendCheckbox.parentElement.classList.add('policy-error');
                     } else { formSendCheckbox.classList.remove('policy-error') }
                 } 
-    
+        
                 if (errCount === 0) {
-					
-					jQuery(function($) {
-						var cf =  $('#contactForm');
-						$.ajax({
-							type: "POST",
-							url:'/wp-admin/admin-ajax.php?action=send_mail',
-							data: cf.serialize()
-						}).done(function(data) {
-							form.querySelector('.contact-form__container').classList.add('none');
-							form.querySelector('.contact-form__thx').classList.remove('none');
-						});
-					});
+                    
+                    jQuery(function($) {
+                        var cf = $('#contactForm');
+                        $.ajax({
+                            type: "POST",
+                            url: '/wp-admin/admin-ajax.php?action=send_mail',
+                            data: cf.serialize()
+                        }).done(function(data) {
+                            if (data.success) {
+                                form.querySelector('.contact-form__container').classList.add('none');
+                                form.querySelector('.contact-form__thx').classList.remove('none');
+                            } else {
+                                alert(data.data.message || 'Error sending message');
+                            }
+                        }).fail(function() {
+                            alert('Network error. Please try again.');
+                        });
+                    });
                    
                 }
             });
-
 
             // SELECT-BOX
 
@@ -147,8 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
-
 /*if (document.querySelector('.services__cookies')) {
     const cookies = document.querySelector('.services__cookies');
     const allCookiesBtns = document.querySelectorAll('.cookies-btn');
@@ -159,8 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
             cookies.classList.remove('show');
         })
     });
-}*/
-if (document.querySelector('.cookies')) {
+}*/\nif (document.querySelector('.cookies')) {
     function validateCookiesDesc() {
         const allSettingsItems = document.querySelectorAll('.cookies__settings-item');
         allSettingsItems.forEach(function(item) {
@@ -260,7 +265,7 @@ function openServiceItemPc(allItems) {
                             i.classList.add('services__item--ready');
                             i.classList.remove('active');
                         })
-        
+    
                         item.style.height = 'fit-content';
                         setTimeout(function() {
                             item.classList.add('active');
@@ -352,7 +357,7 @@ limitingArrowSize();
 window.addEventListener("resize", () => {    
     limitingArrowSize();
 });
-const tels = document.querySelectorAll("input[type=\"tel\"]");
+const tels = document.querySelectorAll('input[type="tel"]');
 
 if (tels) {
     tels.forEach(el => {
@@ -381,7 +386,6 @@ const observer = lozad('.lozad', {
         };
     },
 });
-
 
 observer.observe();
 function manangeActiveBtns(allBtns) {
@@ -565,8 +569,7 @@ if (smoothLinks) {
       secondTab.classList.toggle('show');
       document.querySelector('body').classList.toggle('purple-mood');
     });
-}*/
-function initializeMobileTabs(links) {
+}*/\nfunction initializeMobileTabs(links) {
     if (links) {
         links.forEach(function(link) {
             const allMobileTabs = document.querySelectorAll('.mobile-tab');
@@ -636,7 +639,6 @@ function initializeMobileTabs(links) {
                     });
                 }
             })
-
         })
     }
 }
@@ -665,7 +667,7 @@ function switchingTabs(allTabsBtns, allTabs, tabsContent) {
             }); 
         });
     }
-} 
+}
 
 function switchingSecondTabs(allTabsBtns, allTabs, tabsContent) {
     if (tabsContent) {
@@ -690,7 +692,7 @@ function switchingSecondTabs(allTabsBtns, allTabs, tabsContent) {
             }); 
         });
     }
-} 
+}
 
 switchingTabs(document.querySelectorAll('.contacts [data-tab-btn]'), document.querySelectorAll('.contacts [data-tab]'), document.querySelector('.contacts__content'))
 switchingTabs(document.querySelectorAll('.team [data-tab-btn]'), document.querySelectorAll('.team [data-tab]'), document.querySelector('.team__content'));
