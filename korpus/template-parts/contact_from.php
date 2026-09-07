@@ -14,7 +14,7 @@ $nonce = wp_create_nonce('contact_form_nonce');
 
 	<footer>
 		<div class="contact-form__wrapper-form-policy contact-form__wrapper-form-policy--policy">
-			<input id="policyCheckbox" type="checkbox" data-validate-field="checkbox">
+			<input id="policyCheckbox" type="checkbox" name="policyCheckbox" data-validate-field="checkbox">
 			<label for="policyCheckbox">
 				<p><?php _e('I agree to the terms of processing of my data specified in', 'kp'); ?>
 					<?php $privacy_page = pll_get_post(get_option('wp_page_for_privacy_policy'), pll_current_language()); ?>
