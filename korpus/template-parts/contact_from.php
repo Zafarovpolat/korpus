@@ -1,4 +1,8 @@
+<?php
+$nonce = wp_create_nonce('contact_form_nonce');
+?>
 <form id="contactForm" class="contact-form__wrapper-form" action="">
+    <input type="hidden" name="security" value="<?php echo esc_attr($nonce); ?>">
 	<header>
 		<div class="g-input"><input autocomplete="off" type="text" name="first_name" data-validate-field="name" placeholder="<?php _e('First name', 'kp'); ?>" required></div>
 		<div class="g-input"><input autocomplete="off" type="text" name="last_name" data-validate-field="surname" placeholder="<?php _e('Last name', 'kp'); ?>" required> </div>
