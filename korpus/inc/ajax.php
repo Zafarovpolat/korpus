@@ -55,6 +55,8 @@ function kp_send_mail_ajaxHandler() {
     // или добавьте фильтр: add_filter('kp_contact_form_recipients', ...).
     // Если список пуст — fallback на admin_email из настроек сайта.
     $recipients = apply_filters('kp_contact_form_recipients', [
+        'smirnova@korpusprava.ru',
+        'shchedrina@korpusprava.ru',
         'orlova@corp.enter.global',
         'lubimova@korpusprava.com',
     ]);
