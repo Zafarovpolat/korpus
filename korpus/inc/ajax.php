@@ -51,7 +51,19 @@ function kp_send_mail_ajaxHandler() {
     }
 
     // Формируем email
-    $to = get_option('admin_email');
+    // Получатели заявок. Чтобы изменить список — правьте массив здесь
+    // или добавьте фильтр: add_filter('kp_contact_form_recipients', ...).
+    // Если список пуст — fallback на admin_email из настроек сайта.
+    $recipients = apply_filters('kp_contact_form_recipients', [
+        'orlova@corp.enter.global',
+        'lubimova@korpusprava.com',
+    ]);
+    $recipients = array_values(array_unique(array_filter(array_map('sanitize_email', (array) $recipients))));
+    if (empty($recipients)) {
+        $recipients = [get_option('admin_email')];
+    }
+    $to = implode(', ', $recipients);
+
     $subject = sprintf(__('New contact form submission from %s %s', 'kp'), $first_name, $last_name);
     
     $body = sprintf(
