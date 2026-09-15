@@ -96,13 +96,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 } 
         
                 if (errCount === 0) {
-                    
+
                     jQuery(function($) {
-                        var cf = $('#contactForm');
+                        // Сериализуем именно ту форму, в которой нажали Submit.
+                        // Раньше было $('#contactForm') — при двух экземплярах формы
+                        // (десктоп + мобильный таб) jQuery всегда возвращал первую
+                        // (скрытую десктопную) и отправлял её пустые поля.
                         $.ajax({
                             type: "POST",
                             url: '/wp-admin/admin-ajax.php?action=send_mail',
-                            data: cf.serialize()
+                            data: $(form).serialize()
                         }).done(function(data) {
                             if (data.success) {
                                 form.querySelector('.contact-form__container').classList.add('none');
@@ -166,6 +169,26 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     });
 }*/
+if (document.querySelector('.services__cookies')) {
+    // iOS Safari: нижняя панель браузера перекрывает fixed-элементы (bottom: 0).
+    // Считаем высоту перекрытия через visualViewport и поднимаем баннер на эту
+    // величину (CSS: .services__cookies { bottom: var(--kp-ios-safe-bottom) }).
+    // Когда панель схлопывается при скролле — overlap становится 0, баннер
+    // снова прижат к низу.
+    const cookieBanner = document.querySelector('.services__cookies');
+    if (window.visualViewport) {
+        const vv = window.visualViewport;
+        const updateBannerOffset = function () {
+            const overlap = Math.round(Math.max(0, window.innerHeight - vv.height - vv.offsetTop));
+            document.documentElement.style.setProperty('--kp-ios-safe-bottom', overlap + 'px');
+        };
+        vv.addEventListener('resize', updateBannerOffset);
+        vv.addEventListener('scroll', updateBannerOffset);
+        window.addEventListener('resize', updateBannerOffset);
+        window.addEventListener('orientationchange', updateBannerOffset);
+        updateBannerOffset();
+    }
+}
 if (document.querySelector('.cookies')) {
     function validateCookiesDesc() {
         const allSettingsItems = document.querySelectorAll('.cookies__settings-item');

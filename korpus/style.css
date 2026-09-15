@@ -29,6 +29,13 @@ Version: 1.0
 	justify-content:flex-start;
 }
 
+/* iOS Safari: нижняя панель браузера перекрывает fixed-элементы, приклеенные к bottom: 0.
+   --kp-ios-safe-bottom выставляется в app.js (visualViewport): высота перекрытия тулбаром.
+   max() с env() — страховка для iPhone с «островком»/home indicator (PWA, standalone). */
+.services__cookies {
+	bottom: max(var(--kp-ios-safe-bottom, 0px), env(safe-area-inset-bottom, 0px));
+}
+
 .second-tab__table-item img {
 	height:auto;
 	width: 100%;
