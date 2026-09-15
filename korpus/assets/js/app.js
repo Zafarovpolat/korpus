@@ -99,13 +99,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     jQuery(function($) {
                         // Сериализуем именно ту форму, в которой нажали Submit.
-                        // Раньше было $('#contactForm') — при двух экземплярах формы
-                        // (десктоп + мобильный таб) jQuery всегда возвращал первую
-                        // (скрытую десктопную) и отправлял её пустые поля.
+                        // Внимание: form здесь — обёртка div.contact-form, сам <form> внутри
+                        // (serialize() у div вернёт пустую строку — у него нет .elements),
+                        // поэтому берём вложенный <form>; если шаблон поменяют так, что
+                        // .contact-form окажется на самом <form> — тоже сработает.
+                        const formEl = form.tagName === 'FORM' ? form : form.querySelector('form');
                         $.ajax({
                             type: "POST",
                             url: '/wp-admin/admin-ajax.php?action=send_mail',
-                            data: $(form).serialize()
+                            data: $(formEl).serialize()
                         }).done(function(data) {
                             if (data.success) {
                                 form.querySelector('.contact-form__container').classList.add('none');
