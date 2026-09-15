@@ -68,10 +68,18 @@ function kp_send_mail_ajaxHandler() {
 
     $headers = [
         'Content-Type: text/html; charset=UTF-8',
+        // На многих хостингах wp_mail() молча теряется, если From не принадлежит
+        // домену сайта. Отправляем от служебного ящика на домене сайта,
+        // ответы уходят клиенту через Reply-To.
+        'From: ' . get_bloginfo('name') . ' <no-reply@' . preg_replace('/^www\./i', '', (string) wp_parse_url(home_url(), PHP_URL_HOST)) . '>',
         'Reply-To: ' . $email
     ];
 
     $sent = wp_mail($to, $subject, $body, $headers);
+
+    if (!$sent) {
+        error_log('[kp contact form] wp_mail() failed to send to ' . $to);
+    }
 
     if ($sent) {
         wp_send_json_success([
@@ -85,3 +93,28 @@ function kp_send_mail_ajaxHandler() {
         ]);
     }
 }
+
+// ---------------------------------------------------------------------------
+// Доставка почты: если хостинг не настроен на отправку (wp_mail() возвращает
+// true, но письма не доходят), включите SMTP без плагина — добавьте в wp-config.php:
+//
+//   define('KP_SMTP_HOST', 'smtp.yandex.ru');   // сервер провайдера почты
+//   define('KP_SMTP_PORT', 465);                // 465 (SSL) или 587 (TLS)
+//   define('KP_SMTP_SECURE', 'ssl');            // 'ssl' или 'tls'
+//   define('KP_SMTP_USER', 'noreply@korpusprava.ru');
+//   define('KP_SMTP_PASS', 'пароль_почты');
+//
+add_action('phpmailer_init', function ($phpmailer) {
+    if (defined('KP_SMTP_HOST') && KP_SMTP_HOST) {
+        $phpmailer->isSMTP();
+        $phpmailer->Host       = KP_SMTP_HOST;
+        $phpmailer->SMTPAuth   = true;
+        $phpmailer->Port       = defined('KP_SMTP_PORT') ? KP_SMTP_PORT : 465;
+        $phpmailer->SMTPSecure = defined('KP_SMTP_SECURE') ? KP_SMTP_SECURE : 'ssl';
+        $phpmailer->Username   = defined('KP_SMTP_USER') ? KP_SMTP_USER : '';
+        $phpmailer->Password   = defined('KP_SMTP_PASS') ? KP_SMTP_PASS : '';
+        if (defined('KP_SMTP_FROM') && KP_SMTP_FROM) {
+            $phpmailer->From   = KP_SMTP_FROM;
+        }
+    }
+});
