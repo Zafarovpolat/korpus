@@ -40,7 +40,12 @@ function blockusers_init() {
 
 
 // remove version from scripts and styles
+// КРОМЕ app.js и style.css темы: их версия (mtime) должна остаться в URL,
+// иначе браузеры кэшируют скрипт намертво и фиксы не доезжают до посетителей.
 function remove_version_scripts_styles($src) {
+    if (strpos($src, '/assets/js/app.js') !== false || strpos($src, '/style.css') !== false) {
+        return $src;
+    }
     if (strpos($src, 'ver=')) {
         $src = remove_query_arg('ver', $src);
     }

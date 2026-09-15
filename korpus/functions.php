@@ -28,7 +28,8 @@ function theme_method(){
 	wp_enqueue_style( 'normalize', '//cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css' );
     wp_enqueue_style( 'swiper', '//unpkg.com/swiper@8/swiper-bundle.min.css' );
     wp_enqueue_style('theme_css', get_template_directory_uri() . '/assets/css/style.min.css');
-    wp_enqueue_style( 'custom_style', get_stylesheet_uri() ); //base template style
+    // версия = mtime файла: после каждого деплоя браузеры гарантированно тянут свежий style.css/app.js
+    wp_enqueue_style( 'custom_style', get_stylesheet_uri(), array(), filemtime( get_template_directory() . '/style.css' ) ); //base template style
 
     wp_enqueue_script('lozad', '//cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js', array('jquery'), false, true);
     wp_enqueue_script('ss', '//cdnjs.cloudflare.com/ajax/libs/smooth-scrollbar/8.7.4/smooth-scrollbar.js', array('jquery'), false, true);
